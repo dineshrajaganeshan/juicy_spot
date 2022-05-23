@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:juicy_spot/api/url.dart';
-import 'package:juicy_spot/data_models/Cart_list.dart';
+import 'package:juicy_spot/data_models/cart_list.dart';
 import 'package:juicy_spot/routes/app_routes.dart';
 import 'package:juicy_spot/screens/my_cart_screen/my_cart_screen_controller.dart';
 import 'package:juicy_spot/utils/constant.dart';
@@ -95,8 +95,8 @@ class MyCart extends GetView<MyCartScreenController> {
                             child: SingleChildScrollView(
                               physics: const BouncingScrollPhysics(),
                               child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
+                                  const SizedBox(height: 12,),
                                   Container(
                                     width: Get.width - 30,
                                     decoration: const BoxDecoration(
@@ -180,7 +180,7 @@ class MyCart extends GetView<MyCartScreenController> {
                                           ),
                                         ),
                                         const MySeparator(
-                                          color: textColor,
+                                          color: Colors.grey,
                                         ),
                                         Obx(
                                           () => ListView.builder(
@@ -198,7 +198,7 @@ class MyCart extends GetView<MyCartScreenController> {
                                                 return Column(
                                                   children: [
                                                     const MySeparator(
-                                                      color: textColor,
+                                                      color: Colors.grey,
                                                     ),
                                                     _buildBill(
                                                         "Total",
@@ -240,11 +240,14 @@ class MyCart extends GetView<MyCartScreenController> {
                                   const SizedBox(
                                     height: 12,
                                   ),
-                                  const Padding(
-                                    padding: EdgeInsets.all(8.0),
-                                    child: Text(
-                                      'Payment Method',
-                                      style: TextStyle(color: textColor),
+                                  const Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Padding(
+                                      padding: EdgeInsets.all(8.0),
+                                      child: Text(
+                                        'Payment Method',
+                                        style: TextStyle(color: textColor),
+                                      ),
                                     ),
                                   ),
                                   Padding(
@@ -255,11 +258,13 @@ class MyCart extends GetView<MyCartScreenController> {
                                       children: [
                                         Row(
                                           children: [
-                                            Radio(
-                                                value: 1,
+                                            Obx(()=>Radio(
+                                                value: 'COD',
                                                 activeColor: buttonColor,
-                                                groupValue: 1,
-                                                onChanged: (val) {}),
+                                                groupValue: controller.paymentMode.value,
+                                                onChanged: (val) {
+                                                  controller.paymentMode(val.toString());
+                                                }),),
                                             const SizedBox(
                                               width: 4,
                                             ),
@@ -274,11 +279,13 @@ class MyCart extends GetView<MyCartScreenController> {
                                         ),
                                         Row(
                                           children: [
-                                            Radio(
-                                                value: 2,
+                                            Obx(()=>Radio(
+                                                value: 'ONLINE',
                                                 activeColor: buttonColor,
-                                                groupValue: 1,
-                                                onChanged: (val) {}),
+                                                groupValue: controller.paymentMode.value,
+                                                onChanged: (val) {
+                                                  controller.paymentMode(val.toString());
+                                                }),),
                                             const SizedBox(
                                               width: 4,
                                             ),
@@ -305,14 +312,14 @@ class MyCart extends GetView<MyCartScreenController> {
             ],
           ),
           Obx(
-            () => controller.cartList.isEmpty
+            () => (controller.cartList.isEmpty || controller.cartLoading.value)
                 ? const SizedBox.shrink()
                 : Positioned(
                     bottom: 0,
                     left: 100,
                     right: 100,
                     child: GestureDetector(
-                      onTap: () {
+                      onTap: controller.cartLoading.value ? null : () {
                         controller.placeOrder();
                       },
                       child: Container(
@@ -341,8 +348,7 @@ class MyCart extends GetView<MyCartScreenController> {
   }
 
   _buildProduct(Cart cartItem) {
-    List<String> images =
-        List<String>.from(json.decode(cartItem.products.images));
+
     return Stack(
       children: [
         SizedBox(
@@ -463,7 +469,7 @@ class MyCart extends GetView<MyCartScreenController> {
           child: CircleAvatar(
             radius: 50,
             backgroundColor: circleBgColor,
-            child: cachedImage(IMAGE_BASE_URL + images.first,
+            child: cachedImage(IMAGE_BASE_URL + cartItem.products.images.first,
                 radius: 45, isProduct: true),
           ),
         ),

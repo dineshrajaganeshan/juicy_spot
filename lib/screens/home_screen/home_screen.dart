@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:juicy_spot/api/url.dart';
@@ -137,6 +135,7 @@ class HomeScreen extends GetView<HomeScreenController> {
             ),
             Expanded(
               child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -175,10 +174,23 @@ class HomeScreen extends GetView<HomeScreenController> {
                             color: Colors.white, fontWeight: FontWeight.bold),
                       ),
                     ),
-                    Obx(
-                      () => controller.productLoading.value
-                          ? const ProductShimmer()
-                          : SizedBox(
+                    Obx(() => controller.productLoading.value
+                            ? const ProductShimmer()
+                            : GridView.builder(
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 2,
+                                        childAspectRatio: 0.64),
+                                itemCount: controller.productList.length,
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                padding: const EdgeInsets.only(left: 10),
+                                itemBuilder: (_, index) {
+                                  return _buildProduct(
+                                    controller.productList[index],
+                                  );
+                                })
+                        /*: SizedBox(
                               height: 270,
                               width: Get.width,
                               child: ListView.builder(
@@ -192,8 +204,8 @@ class HomeScreen extends GetView<HomeScreenController> {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 10),
                               ),
-                            ),
-                    ),
+                            ),*/
+                        ),
                     /*const Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Text(
@@ -591,16 +603,14 @@ class HomeScreen extends GetView<HomeScreenController> {
   _buildProduct(
     Product productItem,
   ) {
-    List<String> images = List<String>.from(json.decode(productItem.images));
-    for (var element in images) {
+    for (var element in productItem.images) {
       element = IMAGE_BASE_URL + element;
     }
     return Stack(
       fit: StackFit.loose,
       children: [
-        SizedBox(
+        Container(
           width: Get.width / 2,
-          height: 200,
         ),
         Positioned(
           top: 60,
@@ -630,7 +640,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                       AppRoutes.PRODUCTSCREEN,
                       arguments: {
                         'product': productItem,
-                        'images': images,
+                        'images': productItem.images,
                       },
                     );
                   },
@@ -743,7 +753,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                             'assets/images/cartt.png',
                             height: 25,
                             color: productItem.isOnCart.value
-                                ? Colors.white
+                                ? Colors.grey
                                 : Colors.white,
                           ),
                           onTap: controller.isCartLoading.value
@@ -772,15 +782,15 @@ class HomeScreen extends GetView<HomeScreenController> {
                 AppRoutes.PRODUCTSCREEN,
                 arguments: {
                   'product': productItem,
-                  'images': images,
+                  'images': productItem.images,
                 },
               );
             },
             child: CircleAvatar(
               radius: 65,
               backgroundColor: circleBgColor,
-              child:
-                  cachedImage(IMAGE_BASE_URL + images.first, isProduct: true),
+              child: cachedImage(IMAGE_BASE_URL + productItem.images.first,
+                  isProduct: true),
             ),
           ),
         ),
@@ -984,15 +994,10 @@ class HomeScreen extends GetView<HomeScreenController> {
                                   gridDelegate:
                                       const SliverGridDelegateWithFixedCrossAxisCount(
                                           crossAxisCount: 2,
-                                          mainAxisSpacing: 2,
-                                          childAspectRatio: 0.1),
+                                          childAspectRatio: 0.64),
                                   itemCount:
                                       controller.productListByCategory.length,
-                                  physics: controller
-                                              .productListByCategory.length >
-                                          4
-                                      ? const BouncingScrollPhysics()
-                                      : const NeverScrollableScrollPhysics(),
+                                  physics: const BouncingScrollPhysics(),
                                   padding: const EdgeInsets.only(left: 10),
                                   itemBuilder: (_, index) {
                                     return _buildProduct(

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:juicy_spot/api/api_call.dart';
-import 'package:juicy_spot/data_models/Cart_list.dart';
+import 'package:juicy_spot/data_models/cart_list.dart';
 import 'package:juicy_spot/routes/app_routes.dart';
 import 'package:juicy_spot/utils/constant.dart';
 
@@ -12,10 +12,12 @@ class MyCartScreenController extends GetxController {
   String authKey = "";
   String timeStamp = "";
   var sumQty = 0, sumAmt = 0;
+  RxString paymentMode = 'COD'.obs;
 
   RxList<Cart> cartList = RxList();
 
   final _box = GetStorage();
+
   @override
   void onInit() {
     // TODO: implement onInit
@@ -53,7 +55,7 @@ class MyCartScreenController extends GetxController {
     }
   }
 
-  orderDetailsToCart() async {
+/*  orderDetailsToCart() async {
     if (await isNetConnected()) {
       final response = await ApiCall().payment(timeStamp, "CASH",
           sumAmt.toString(), authKey, "SUCCESS", "COD", timeStamp);
@@ -62,7 +64,7 @@ class MyCartScreenController extends GetxController {
         showToastMsg(response["message"]);
       }
     }
-  }
+  }*/
 
   Future placeOrder() async {
     if (await isNetConnected()) {
@@ -73,18 +75,26 @@ class MyCartScreenController extends GetxController {
           final response = await ApiCall().orderDetailsToOrder(authKey);
           if (response != null) {
             if (response["success"]) {
-              final response = await ApiCall().payment(timeStamp, "CASH",
-                  sumAmt.toString(), authKey, "SUCCESS", "COD", timeStamp);
-              Get.offAndToNamed(AppRoutes.ORDERHISTORY);
+              final response = await ApiCall().payment(
+                  timeStamp,
+                  paymentMode.value == 'COD' ? 'CASH' : 'UPI',
+                  sumAmt.toString(),
+                  authKey,
+                  "SUCCESS",
+                  paymentMode.value,
+                  timeStamp);
               cartLoading(false);
               if (response != null) {
-                if (response["success"]) {}
-                showToastMsg(response["message"]);
+                if (response["success"]) {
+                  await showAlert(
+                      'Order Placed!', response['message'], 'My Order',
+                      isDismiss: false, isOneButton: true);
+                  Get.offAndToNamed(AppRoutes.ORDERHISTORY);
+                }
               }
             }
           }
         }
-        //showToastMsg(response["message"]);
       }
     }
   }

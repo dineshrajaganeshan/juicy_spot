@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 
 /// id : 3
@@ -29,7 +31,7 @@ class Product {
     id = json['id'];
     name = json['name'];
     description = json['description'];
-    images = json['images'].toString().replaceAll(r"\", "");
+    images = List<String>.from(jsonDecode(json['images'].toString().replaceAll(r"\", "")));
     price = json['price'];
     discountPrice = json['discount_price'];
     discountPricePercentage = json['discount_price_percentage'];
@@ -40,7 +42,7 @@ class Product {
   late int id;
   late String name;
   late String description;
-  late String images;
+  late List<String> images;
   late int price;
   late int discountPrice;
   late int discountPricePercentage;

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:juicy_spot/api/api_call.dart';
-import 'package:juicy_spot/data_models/Product_by_category.dart';
+import 'package:juicy_spot/data_models/product_by_category.dart';
 import 'package:juicy_spot/data_models/product.dart';
 import 'package:juicy_spot/data_models/category.dart';
 import 'package:juicy_spot/utils/constant.dart';
@@ -91,20 +91,22 @@ class HomeScreenController extends GetxController {
     RxInt counter,
     RxBool isOnCart,
   ) async {
+
     if (await isNetConnected()) {
       if (counter.value != 0) {
         isCartLoading(true);
+        isOnCart(true);
         final response = await ApiCall()
             .addToCart(id, counter.value, _box.read(AUTHORIZATION_KEY));
         isCartLoading(false);
+        isOnCart(false);
         if (response != null) {
           if (response["success"]) {
-            isOnCart(true);
+            // isOnCart(true);
           }
           showToastMsg(response["message"]);
         }
       }
-      showToastMsg("product value is 0");
     }
   }
 }

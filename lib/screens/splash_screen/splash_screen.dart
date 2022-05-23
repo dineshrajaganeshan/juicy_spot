@@ -20,7 +20,7 @@ class SplashScreen extends GetView<SplashScreenController> {
             color: backgroundColor,
             child: Center(
                 child: Image.asset(
-              'assets/images/dish.png',
+              'assets/images/js_logo_trans.png',
               width: 220,
             )),
           ),

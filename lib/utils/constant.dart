@@ -121,3 +121,93 @@ openWhatsapp(String text) async {
     }
   }
 }
+
+
+showAlert(String title, String msg, String posBtnText,
+    {bool isDismiss = true, bool isOneButton = false}) {
+  Get.focusScope?.unfocus();
+  return showDialog(
+    context: Get.context!,
+    barrierDismissible: isDismiss,
+    builder: (BuildContext con) {
+      return Dialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        backgroundColor: backgroundColor,
+        child: Container(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(
+                    fontSize: 15,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold),
+              ),
+              const Divider(color: textColor,),
+              Text(
+                msg,
+                style: const TextStyle(
+                    fontSize: 14,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500),
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  isOneButton
+                      ? const SizedBox(
+                    width: 100,
+                    height: 35,
+                  )
+                      :  GestureDetector(
+                    onTap: () => {Get.back(result: false)},
+                    child: Container(
+                        height: 30,
+                        width: 100,
+                        decoration: const BoxDecoration(
+                          color: buttonColor,
+                          borderRadius:
+                          BorderRadius.all(Radius.circular(12)),
+                        ),
+                        child: const Center(
+                            child: Text(
+                              'Cancel',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 13),
+                            ))),),
+                  GestureDetector(
+                    onTap: () => {Get.back(result: true)},
+                    child: Container(
+                        height: 30,
+                        width: 100,
+                        decoration: const BoxDecoration(
+                          color: buttonColor,
+                          borderRadius:
+                          BorderRadius.all(Radius.circular(12)),
+                        ),
+                        child: Center(
+                            child: Text(
+                              posBtnText,
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 13),
+                            ))),)
+                ],
+              )
+            ],
+          ),
+        ),
+      );
+    },
+  );
+}

@@ -34,12 +34,11 @@ class ProductScreenController extends GetxController {
         productLoading(false);
         if (response != null) {
           if (response["success"]) {
-            product.isOnCart(true);
+            // product.isOnCart(true);
           }
           showToastMsg(response["message"]);
         }
       }
-      showToastMsg("product value is 0");
     }
   }
 }

@@ -6,11 +6,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:juicy_spot/api/url.dart';
-import 'package:juicy_spot/data_models/Cart_list.dart';
+import 'package:juicy_spot/data_models/cart_list.dart';
 import 'package:juicy_spot/data_models/product.dart';
 import 'package:juicy_spot/data_models/category.dart';
 
-import '../data_models/Product_by_category.dart';
+import '../data_models/product_by_category.dart';
 import '../main.dart';
 import '../utils/constant.dart';
 
