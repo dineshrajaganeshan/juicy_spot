@@ -85,7 +85,10 @@ class LoginScreen extends GetView<LogInScreenController> {
                   height: 16,
                 ),
                 GestureDetector(
-                  onTap: () => controller.forgotPassword(),
+                  onTap: () {
+                    Get.toNamed(AppRoutes.FORGOTPASSWORDSCREEN);
+                  },
+                  //controller.forgotPassword(),
                   child: const Align(
                       alignment: Alignment.centerRight,
                       child: Text(

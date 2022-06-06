@@ -7,8 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:juicy_spot/api/url.dart';
 import 'package:juicy_spot/data_models/cart_list.dart';
+import 'package:juicy_spot/data_models/order_history.dart';
 import 'package:juicy_spot/data_models/product.dart';
 import 'package:juicy_spot/data_models/category.dart';
+import 'package:juicy_spot/data_models/user.dart';
+import 'package:juicy_spot/data_models/user_log_in.dart';
 
 import '../data_models/product_by_category.dart';
 import '../main.dart';
@@ -32,11 +35,10 @@ class ApiCall {
     _dio.interceptors.add(MyApp.alice.getDioInterceptor());
   }
 
-  Future<dynamic> sendOTP(String mobileNo) async {
-    var params = {"init_from": mobileNo, "for": "register-init"};
+  Future<dynamic> sendOTP(String mobileNo, String temp) async {
+    var params = {"init_from": mobileNo, "for": temp};
     try {
       _dio.options.headers["basic-api-token"] = _getBaseToken();
-      //log ipti use pannu before req log
       log('request ${_dio.options.baseUrl}$OTP_SEND ${jsonEncode(params)}');
       final response = await _dio.post(
         OTP_SEND,
@@ -58,8 +60,8 @@ class ApiCall {
     }
   }
 
-  Future<dynamic> verifyOTP(String otp, String mobileNo) async {
-    var params = {"init_from": mobileNo, "for": "register-init", "otp": otp};
+  Future<dynamic> verifyOTP(String otp, String mobileNo, String temp) async {
+    var params = {"init_from": mobileNo, "for": temp, "otp": otp};
     try {
       _dio.options.headers["basic-api-token"] = _getBaseToken();
 
@@ -80,7 +82,30 @@ class ApiCall {
     }
   }
 
-  Future<dynamic> userLogIn(String mobileNo, String passWord) async {
+  Future<dynamic> resetPassword(
+      String password, String mobileNo, String temp) async {
+    var params = {"init_from": mobileNo, "for": temp, "password": password};
+    try {
+      _dio.options.headers["basic-api-token"] = _getBaseToken();
+
+      log('request ${_dio.options.baseUrl}$RESET_PASSWORD ${jsonEncode(params)}');
+      final response = await _dio.post(RESET_PASSWORD, data: params);
+      log('response ${response.statusCode} ${response.data}');
+
+      if ((response.statusCode ?? -1) >= 205) {
+        showToastMsg("${response.statusMessage}");
+        return null;
+      } else if (response.statusCode == 200) {
+        return response.data;
+      }
+    } catch (e) {
+      showToastMsg("Something went wrong");
+      debugPrint("ERROR: ${e.toString()}");
+      return null;
+    }
+  }
+
+  Future<UserLogIn?> userLogIn(String mobileNo, String passWord) async {
     var params = {
       "mobile": mobileNo,
       "password": passWord,
@@ -96,7 +121,7 @@ class ApiCall {
         showToastMsg("${response.statusMessage}");
         return null;
       } else {
-        return response.data;
+        return UserLogIn.fromJson(response.data);
       }
     } catch (e) {
       showToastMsg("Something went wrong");
@@ -452,6 +477,31 @@ class ApiCall {
         return null;
       } else {
         return response.data;
+      }
+    } catch (e) {
+      showToastMsg("Something went wrong");
+      debugPrint("ERROR: ${e.toString()}");
+      return null;
+    }
+  }
+
+  Future<List<OrderHistory>?> fetchOrderHistory(String authKey) async {
+    try {
+      _dio.options.headers["basic-api-token"] = _getBaseToken();
+      _dio.options.headers["Authorization"] = "Bearer $authKey";
+      log('request ${_dio.options.baseUrl}$ORDERHISTORY');
+      final response = await _dio.post(
+        ORDERHISTORY,
+      );
+      log('response ${response.statusCode} ${response.data}');
+
+      if ((response.statusCode ?? -1) >= 205) {
+        showToastMsg("${response.statusMessage}");
+        return null;
+      } else {
+        return (response.data as List)
+            .map((x) => OrderHistory.fromJson(x))
+            .toList();
       }
     } catch (e) {
       showToastMsg("Something went wrong");

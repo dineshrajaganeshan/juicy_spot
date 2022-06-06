@@ -9,4 +9,6 @@ class AppRoutes {
   static const REGISTERSCREEN = '/register';
   static const SPLASHSCREEN = '/splashscreen';
   static const PRODUCTSCREEN = '/productscreen';
+  static const FORGOTPASSWORDSCREEN = '/forgetpasswordscreen';
+  static const SETPASSWORDSCREEN = '/setpasswordscreen';
 }

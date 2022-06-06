@@ -13,7 +13,7 @@ class OTPVerifyController extends GetxController {
   RxBool isResend = false.obs;
   RxBool isLoading = false.obs;
   String otp = "";
-  String mobileNo="";
+  String mobileNo = "";
 
   @override
   void onInit() {
@@ -41,12 +41,13 @@ class OTPVerifyController extends GetxController {
     if (otp.length == 4) {
       isLoading(true);
       print("OTP verify: $otp");
-      final response = await ApiCall().verifyOTP(otp, mobileNo);
+      final response =
+          await ApiCall().verifyOTP(otp, mobileNo, "register-init");
       isLoading(false);
 
       if (response != null /*&& response == 1*/) {
         showToastMsg("Verification Complete");
-        Get.offNamed(AppRoutes.EDITACCOUNT,arguments: true);
+        Get.offNamed(AppRoutes.EDITACCOUNT, arguments: true);
       } else {
         showToastMsg("Invalid OTP");
       }
@@ -58,7 +59,7 @@ class OTPVerifyController extends GetxController {
   resendOTP() async {
     Get.focusScope?.unfocus();
     isResend(false);
-    final response = await ApiCall().sendOTP(mobileNo);
+    final response = await ApiCall().sendOTP(mobileNo, "register-init");
     print("response: ${response["success"]}");
     if (response != null) {
       showToastMsg("${response["message"]}");

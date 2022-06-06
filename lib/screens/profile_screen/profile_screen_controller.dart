@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:juicy_spot/api/api_call.dart';
+import 'package:juicy_spot/api/url.dart';
 import 'package:juicy_spot/data_models/user.dart';
 import 'package:juicy_spot/routes/app_routes.dart';
 import 'package:juicy_spot/utils/constant.dart';
@@ -63,14 +64,13 @@ class EditAccountController extends GetxController {
             locationController.text,
             imagePath.value);
         isLoading(false);
-        debugPrint('response: ${response['data']}');
         if (response != null) {
           if (response['success']) {
             User user = User.fromJson(response['data']);
             _box.write(NAME, user.name);
             _box.write(LOCATION, user.address);
             _box.write(MAIL_ID, user.mailId);
-            _box.write(IMAGE_PATH, user.imagePath);
+            _box.write(IMAGE_PATH, PROFILE_IMAGE_BASE_URL + user.imagePath!);
             _box.write(AUTHORIZATION_KEY, response['response']);
             _box.write(IS_LOGIN, true);
             showToastMsg(response['message']);
@@ -95,7 +95,7 @@ class EditAccountController extends GetxController {
             _box.write(NAME, nameController.text);
             _box.write(LOCATION, locationController.text);
             _box.write(MAIL_ID, mailIdController.text);
-            _box.write(IMAGE_PATH, imagePath.value);
+            _box.write(IMAGE_PATH, PROFILE_IMAGE_BASE_URL + imagePath.value);
             showToastMsg(response['message']);
             Get.back();
           } else {

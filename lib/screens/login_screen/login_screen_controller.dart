@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:juicy_spot/api/api_call.dart';
+import 'package:juicy_spot/api/url.dart';
+import 'package:juicy_spot/data_models/user.dart';
+import 'package:juicy_spot/data_models/user_log_in.dart';
 import 'package:juicy_spot/routes/app_routes.dart';
 import 'package:juicy_spot/utils/constant.dart';
 
@@ -29,28 +32,38 @@ class LogInScreenController extends GetxController {
       );
     } else {
       isLoading(true);
-      final response = await ApiCall()
+      UserLogIn? response = await ApiCall()
           .userLogIn(mobileNoController.text, passwordController.text);
       isLoading(false);
       if (response != null) {
-        if (response["success"]) {
+        if (response.success) {
           _box.write(MOBILE_NO, mobileNoController.text);
           _box.write(PASSWORD, passwordController.text);
-          _box.write(NAME, 'Dinesh Raja');
-          _box.write(MAIL_ID, 'dinesh@gmail.com');
-          _box.write(LOCATION,
-              '1/1803, Siva street, Pandiyan nagar, Virudhunagar - 626001');
-          _box.write(IMAGE_PATH,
-              'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlciUyMHByb2ZpbGV8ZW58MHx8MHx8&auto=format&fit=crop&w=400&q=60');
-          _box.write(AUTHORIZATION_KEY, response["response"]);
+          _box.write(NAME, response.data.name);
+          _box.write(MAIL_ID, response.data.email);
+          _box.write(LOCATION, response.data.address);
+          _box.write(IMAGE_PATH, IMAGE_BASE_URL + response.data.avatar);
+          _box.write(AUTHORIZATION_KEY, response.response);
           _box.write(IS_LOGIN, true);
           Get.offAllNamed(AppRoutes.HOMESCREEN);
         } else {
-          showToastMsg(response["message"]);
+          showToastMsg(response.message);
         }
       }
     }
   }
 
-  forgotPassword() {}
+  forgotPassword() async {
+    Get.focusScope?.unfocus();
+    final response = await ApiCall().sendOTP(MOBILE_NO, "password-init");
+    print("response: ${response["success"]}");
+    if (response != null) {
+      showToastMsg("${response["message"]}");
+/*
+      if (response["success"]) {
+        print("OTP: ${response["response"]}");
+      }
+*/
+    }
+  }
 }

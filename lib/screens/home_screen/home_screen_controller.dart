@@ -32,6 +32,7 @@ class HomeScreenController extends GetxController {
     name(_box.read(NAME) ?? "");
     address(_box.read(LOCATION) ?? "");
     imagePath(_box.read(IMAGE_PATH) ?? "");
+    debugPrint("profle mage: ${imagePath}");
     authKey = _box.read(AUTHORIZATION_KEY) ?? '';
     getCategoryList();
     getProductList();
@@ -91,7 +92,6 @@ class HomeScreenController extends GetxController {
     RxInt counter,
     RxBool isOnCart,
   ) async {
-
     if (await isNetConnected()) {
       if (counter.value != 0) {
         isCartLoading(true);

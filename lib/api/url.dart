@@ -1,10 +1,13 @@
 const BASE_URL = "https://juicyspot.in/dev/api/";
 String IMAGE_BASE_URL = "https://juicyspot.in/dev/juicyspot/public/storage/";
+String PROFILE_IMAGE_BASE_URL =
+    "https://juicyspot.in/dev/juicyspot/public/storage";
 String NO_IMAGE_URL =
     "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png";
 
 const OTP_SEND = "sms/otp-send";
 const OTP_VERIFY = "sms/otp-verify";
+const RESET_PASSWORD = "user/password-reset";
 
 const REGISTER = "user/register";
 const LOGIN = "user/login";
@@ -22,3 +25,5 @@ const ORDERDETAILSTOCART = "order_details/orderdetails_to_cart";
 const ORDERDETAILSTOORDER = "order/orderdetails_to_order";
 
 const PAYMENT = "payment";
+
+const ORDERHISTORY = "order/order_history";

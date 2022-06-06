@@ -37,7 +37,8 @@ class RegisterScreenController extends GetxController {
       );
     } else {
       isLoading(true);
-      final response = await ApiCall().sendOTP(mobileNumberController.text);
+      final response =
+          await ApiCall().sendOTP(mobileNumberController.text, "register-init");
       isLoading(false);
 
       if (response != null) {
