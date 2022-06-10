@@ -240,6 +240,30 @@ class MyCart extends GetView<MyCartScreenController> {
                                   const SizedBox(
                                     height: 12,
                                   ),
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Column(
+                                        children: [
+                                          const Text(
+                                            'Delivered To',
+                                            style: TextStyle(color: editTextColor),
+                                          ),
+                                          const SizedBox(
+                                            height: 6,
+                                          ),
+                                          Text(
+                                            '${controller.address}',
+                                            style: const TextStyle(color: editTextColor),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 12,
+                                  ),
                                   const Align(
                                     alignment: Alignment.centerLeft,
                                     child: Padding(
@@ -268,12 +292,17 @@ class MyCart extends GetView<MyCartScreenController> {
                                             const SizedBox(
                                               width: 4,
                                             ),
-                                            const Text(
-                                              'Cash On Delivery',
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 14),
+                                            GestureDetector(
+                                              onTap: (){
+                                                controller.paymentMode('COD');
+                                              },
+                                              child: const Text(
+                                                'Cash On Delivery',
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 14),
+                                              ),
                                             )
                                           ],
                                         ),
@@ -289,12 +318,17 @@ class MyCart extends GetView<MyCartScreenController> {
                                             const SizedBox(
                                               width: 4,
                                             ),
-                                            const Text(
-                                              'Pay Online',
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 14),
+                                            GestureDetector(
+                                              onTap: (){
+                                                controller.paymentMode('ONLINE');
+                                              },
+                                              child: const Text(
+                                                'Pay Online',
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 14),
+                                              ),
                                             )
                                           ],
                                         ),

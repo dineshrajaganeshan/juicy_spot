@@ -66,17 +66,17 @@ class ProfileScreen extends GetView<EditAccountController> {
                                           image: AssetImage(
                                             "assets/images/Profile2.png",
                                           ),
-                                          fit: BoxFit.fill)
+                                          fit: BoxFit.cover)
                                       : GetUtils.isURL(
                                               controller.imagePath.value)
                                           ? DecorationImage(
                                               image: NetworkImage(
                                                   controller.imagePath.value),
-                                              fit: BoxFit.fill)
+                                              fit: BoxFit.cover)
                                           : DecorationImage(
                                               image: FileImage(File(
                                                   controller.imagePath.value)),
-                                              fit: BoxFit.fill)),
+                                              fit: BoxFit.cover)),
                             ),
                           ),
                         ),

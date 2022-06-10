@@ -12,6 +12,7 @@ class MyCartScreenController extends GetxController {
   String authKey = "";
   String timeStampPaymentId = "";
   String timeStampOrderId = "";
+  RxString address="".obs;
 
   var sumQty = 0, sumAmt = 0;
   RxString paymentMode = 'COD'.obs;
@@ -25,6 +26,7 @@ class MyCartScreenController extends GetxController {
     // TODO: implement onInit
     super.onInit();
     getCartList();
+    address(_box.read(LOCATION));
     imagePath(_box.read(IMAGE_PATH));
     authKey = _box.read(AUTHORIZATION_KEY);
     timeStampPaymentId = DateTime.now().millisecondsSinceEpoch.toString();

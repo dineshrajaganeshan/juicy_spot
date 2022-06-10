@@ -27,11 +27,13 @@ dependencies:
   share_plus: ^4.0.4
   in_app_review: ^2.0.4
   url_launcher: ^6.1.0
-  advance_notification: ^1.0.6
+#  advance_notification: ^1.0.6
+  fluttertoast: any
   alice: ^0.2.5
   image_picker: ^0.8.5
   shimmer: ^2.0.0
   cached_network_image: ^3.2.0
+  google_fonts: ^3.0.1
 
 
 dev_dependencies:

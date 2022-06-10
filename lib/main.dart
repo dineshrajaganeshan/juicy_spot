@@ -2,6 +2,7 @@ import 'package:alice/alice.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:juicy_spot/routes/app_pages.dart';
 import 'routes/app_routes.dart';
 
@@ -25,6 +26,9 @@ class MyApp extends StatelessWidget {
       title: 'Juicy Spot',
       initialRoute: AppRoutes.SPLASHSCREEN,
       getPages: AppPages.routes,
+      theme: ThemeData(
+        textTheme: GoogleFonts.montserratTextTheme(),
+      ),
       navigatorKey: alice.getNavigatorKey(),
     );
   }

@@ -32,6 +32,7 @@ class EditAccountController extends GetxController {
     locationController.text = _box.read(LOCATION) ?? "";
     authKey = _box.read(AUTHORIZATION_KEY) ?? "";
     passWord = _box.read(PASSWORD) ?? "";
+    imagePath(_box.read(IMAGE_PATH) ?? "");
   }
 
   submit() async {

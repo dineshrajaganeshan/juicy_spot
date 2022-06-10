@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:juicy_spot/routes/app_routes.dart';
@@ -21,46 +22,46 @@ class MyAccountScreen extends GetView<MyAccountController> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: backgroundColor,
-      body: Stack(
-        children: [
-          const AppBackground(),
-          Positioned(
-              left: 20,
-              right: 20,
-              top: 50,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  IconButton(
-                    onPressed: () {
-                      Get.back();
-                    },
-                    icon: const Icon(
-                      Icons.arrow_back_ios,
-                      color: editTextColor,
+      body: SafeArea(
+        child: Stack(
+          children: [
+            const AppBackground(),
+            Positioned(
+                left: 20,
+                right: 20,
+                top: 10,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        Get.back();
+                      },
+                      icon: const Icon(
+                        Icons.arrow_back_ios,
+                        color: editTextColor,
+                      ),
                     ),
-                  ),
-                  const Text(
-                    'My Account',
-                    style: TextStyle(color: Colors.white, fontSize: 18),
-                  ),
-                  IconButton(
-                    onPressed: () =>
-                        {Get.toNamed(AppRoutes.EDITACCOUNT, arguments: false)},
-                    icon: const Icon(
-                      Icons.edit,
-                      color: editTextColor,
+                    const Text(
+                      'My Account',
+                      style: TextStyle(color: Colors.white, fontSize: 18),
                     ),
-                  ),
-                ],
-              )),
-          Positioned(
-              left: 20,
-              right: 20,
-              top: 120,
-              child: Center(
+                    IconButton(
+                      onPressed: () =>
+                          {Get.toNamed(AppRoutes.EDITACCOUNT, arguments: false)},
+                      icon: const Icon(
+                        Icons.edit,
+                        color: editTextColor,
+                      ),
+                    ),
+                  ],
+                )),
+            Padding(
+              padding: const EdgeInsets.only(top: 50,left: 16,right: 16),
+              child: SingleChildScrollView(
                 child: Column(
                   children: [
+                    const SizedBox(height: 50,),
                     Obx(
                       () => cachedImage(controller.imagePath.value),
                     ),
@@ -70,11 +71,11 @@ class MyAccountScreen extends GetView<MyAccountController> {
                     Obx(
                       () => Text(
                         controller.name.toString(),
-                        style: const TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                       ),
                     ),
                     const SizedBox(
-                      height: 32,
+                      height: 24,
                     ),
                     EditText(
                       placeholder: 'Mobile Number',
@@ -206,14 +207,22 @@ class MyAccountScreen extends GetView<MyAccountController> {
                                         fontSize: 15),
                                   ))),
                             ),
-                    )
+                    ),
+                    const SizedBox(height: 20,),
+
                   ],
                 ),
-              )),
-        ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
+
+  // left: 20,
+  // right: 20,
+  // top: 100,
 
   _buildMenu(String svgPath, String title, Function onTab, {double? height}) {
     return InkWell(

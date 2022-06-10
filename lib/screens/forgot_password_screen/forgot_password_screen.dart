@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:juicy_spot/screens/forgot_password_screen/forgot_password_%20controller.dart';
+import 'package:juicy_spot/screens/forgot_password_screen/forgot_password_controller.dart';
 import 'package:juicy_spot/utils/custom_colors.dart';
 import 'package:juicy_spot/widgets/background.dart';
 import 'package:juicy_spot/widgets/edittext.dart';
@@ -23,7 +23,20 @@ class ForgotPasswordScreen extends GetView<ForgotPasswordController> {
           children: [
             const AppBackground(),
             Positioned(
-              top: 30,
+              top: 10,
+              left: 10,
+              child: IconButton(
+                onPressed: () {
+                  Get.back();
+                },
+                icon: const Icon(
+                  Icons.arrow_back_ios,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            Positioned(
+              top: 60,
               left: 40,
               child: Text(
                 controller.otpIsVisible.value
@@ -37,7 +50,7 @@ class ForgotPasswordScreen extends GetView<ForgotPasswordController> {
               ),
             ),
             Positioned(
-              top: 80,
+              top: 100,
               left: 40,
               right: 40,
               child: Column(
@@ -73,8 +86,6 @@ class ForgotPasswordScreen extends GetView<ForgotPasswordController> {
                                         height: 40,
                                         width: 40,
                                         padding: const EdgeInsets.all(6),
-                                        margin:
-                                            const EdgeInsets.only(right: 40),
                                         child: const CircularProgressIndicator(
                                           color: buttonColor,
                                         ),
@@ -193,8 +204,6 @@ class ForgotPasswordScreen extends GetView<ForgotPasswordController> {
                                         height: 40,
                                         width: 40,
                                         padding: const EdgeInsets.all(6),
-                                        margin:
-                                            const EdgeInsets.only(right: 40),
                                         child: const CircularProgressIndicator(
                                           color: buttonColor,
                                         ),

@@ -13,6 +13,8 @@ class OrderHistoryScreen extends GetView<OrderHistoryController> {
   @override
   final controller = Get.put(OrderHistoryController());
 
+  OrderHistoryScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -124,16 +126,26 @@ class OrderHistoryScreen extends GetView<OrderHistoryController> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                orderList.updatedAt.substring(0, 10).toString(),
-                style: const TextStyle(color: textLightColor, fontSize: 13),
+                '#${orderList.orderId}',
+                style: const TextStyle(color: Colors.white, fontSize: 13,fontWeight: FontWeight.bold),
               ),
               Text(
-                "Payment: " + orderList.status,
-                style: const TextStyle(color: textLightColor, fontSize: 13),
+                '${orderList.updatedAt.substring(0, 10).toString()} ${orderList.updatedAt.substring(11, 16).toString()}',
+                style: const TextStyle(color: editTextColor, fontSize: 13),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8,),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Payment id: #" + orderList.paymentId,
+                style: const TextStyle(color: editTextColor, fontSize: 13,fontWeight: FontWeight.bold),
               ),
               Text(
-                "Payment id: " + orderList.paymentId,
-                style: const TextStyle(color: textLightColor, fontSize: 13),
+                orderList.status,
+                style: const TextStyle(color: editTextColor, fontSize: 13),
               ),
             ],
           ),
@@ -197,16 +209,14 @@ class OrderHistoryScreen extends GetView<OrderHistoryController> {
           const SizedBox(
             height: 4,
           ),
-          Container(
-            child: ListView.builder(
-                scrollDirection: Axis.vertical,
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                padding: const EdgeInsets.all(0),
-                itemBuilder: (_, index) =>
-                    _buildProducts(orderList.orderDetails[index]),
-                itemCount: orderList.orderDetails.length),
-          ),
+          ListView.builder(
+              scrollDirection: Axis.vertical,
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              padding: const EdgeInsets.all(0),
+              itemBuilder: (_, index) =>
+                  _buildProducts(orderList.orderDetails[index]),
+              itemCount: orderList.orderDetails.length),
           const SizedBox(
             height: 8,
           ),
@@ -266,7 +276,11 @@ class OrderHistoryScreen extends GetView<OrderHistoryController> {
                 ),
               ),
             ],
-          )
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          const Divider(color: textLightColor,),
         ],
       ),
     );
