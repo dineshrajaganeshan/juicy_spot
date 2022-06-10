@@ -39,6 +39,22 @@ class SetNewPasswordScreen extends GetView<SetNewPasswordController> {
               right: 40,
               child: Column(
                 children: [
+                  EditText(
+                    placeholder: 'MobileNumber',
+                    controller: controller.mobileNoController,
+                    readOnly: true,
+                    textColor: Colors.white,
+                    suffixIcon: const IconButton(
+                        icon: Icon(
+                          Icons.phone,
+                          color: Colors.grey,
+                          size: 18,
+                        ),
+                        onPressed: null),
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
                   Obx(
                     () => EditText(
                       placeholder: 'Password',

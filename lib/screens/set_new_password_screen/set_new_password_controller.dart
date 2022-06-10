@@ -10,6 +10,7 @@ import 'package:juicy_spot/routes/app_routes.dart';
 import 'package:juicy_spot/utils/constant.dart';
 
 class SetNewPasswordController extends GetxController {
+  final mobileNoController = TextEditingController();
   final passwordController = TextEditingController();
   final reTypePasswordController = TextEditingController();
 
@@ -26,6 +27,7 @@ class SetNewPasswordController extends GetxController {
     // TODO: implement onInit
     super.onInit();
     mobileNo = _box.read(MOBILE_NO) ?? "";
+    mobileNoController.text = mobileNo;
   }
 
   Future setPassword() async {
@@ -49,7 +51,7 @@ class SetNewPasswordController extends GetxController {
       isLoading(false);
       if (response != null /*&& response == 1*/) {
         if (response["success"]) {
-          await showAlert('Password ', response['message'], 'Exit',
+          await showAlert('Password ', response['message'], 'LogIn',
               isDismiss: false, isOneButton: true);
 
           Get.offAndToNamed(AppRoutes.LOGIN);

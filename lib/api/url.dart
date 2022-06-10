@@ -24,6 +24,6 @@ const CARTTOORDERDETAILS = "order_details/cart_to_orderdetails";
 const ORDERDETAILSTOCART = "order_details/orderdetails_to_cart";
 const ORDERDETAILSTOORDER = "order/orderdetails_to_order";
 
-const PAYMENT = "payment";
+const CARTTOPAYMENT = "cart_to_payment";
 
 const ORDERHISTORY = "order/order_history";

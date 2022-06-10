@@ -120,10 +120,22 @@ class OrderHistoryScreen extends GetView<OrderHistoryController> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            //'May 04 2021',
-            orderList.updatedAt,
-            style: const TextStyle(color: textLightColor, fontSize: 13),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                orderList.updatedAt.substring(0, 10).toString(),
+                style: const TextStyle(color: textLightColor, fontSize: 13),
+              ),
+              Text(
+                "Payment: " + orderList.status,
+                style: const TextStyle(color: textLightColor, fontSize: 13),
+              ),
+              Text(
+                "Payment id: " + orderList.paymentId,
+                style: const TextStyle(color: textLightColor, fontSize: 13),
+              ),
+            ],
           ),
           const SizedBox(
             height: 12,

@@ -10,7 +10,9 @@ class MyCartScreenController extends GetxController {
   RxString imagePath = "".obs;
   RxBool cartLoading = false.obs;
   String authKey = "";
-  String timeStamp = "";
+  String timeStampPaymentId = "";
+  String timeStampOrderId = "";
+
   var sumQty = 0, sumAmt = 0;
   RxString paymentMode = 'COD'.obs;
 
@@ -25,8 +27,8 @@ class MyCartScreenController extends GetxController {
     getCartList();
     imagePath(_box.read(IMAGE_PATH));
     authKey = _box.read(AUTHORIZATION_KEY);
-    timeStamp = DateTime.now().millisecondsSinceEpoch.toString();
-    debugPrint("stamp: $timeStamp");
+    timeStampPaymentId = DateTime.now().millisecondsSinceEpoch.toString();
+    timeStampOrderId = DateTime.now().millisecondsSinceEpoch.toString();
   }
 
   getCartList() async {
@@ -69,31 +71,20 @@ class MyCartScreenController extends GetxController {
   Future placeOrder() async {
     if (await isNetConnected()) {
       cartLoading(true);
-      final response = await ApiCall().cartToOrderDetails(authKey);
+      final response = await ApiCall().cartToPayment(
+          timeStampPaymentId,
+          paymentMode.value == 'COD' ? 'CASH' : 'UPI',
+          sumAmt.toString(),
+          authKey,
+          "SUCCESS",
+          paymentMode.value,
+          timeStampOrderId);
+      cartLoading(false);
       if (response != null) {
         if (response["success"]) {
-          final response = await ApiCall().orderDetailsToOrder(authKey);
-          if (response != null) {
-            if (response["success"]) {
-              final response = await ApiCall().payment(
-                  timeStamp,
-                  paymentMode.value == 'COD' ? 'CASH' : 'UPI',
-                  sumAmt.toString(),
-                  authKey,
-                  "SUCCESS",
-                  paymentMode.value,
-                  timeStamp);
-              cartLoading(false);
-              if (response != null) {
-                if (response["success"]) {
-                  await showAlert(
-                      'Order Placed!', response['message'], 'My Order',
-                      isDismiss: false, isOneButton: true);
-                  Get.offAndToNamed(AppRoutes.ORDERHISTORY);
-                }
-              }
-            }
-          }
+          await showAlert('Order Placed!', response['message'], 'My Order',
+              isDismiss: false, isOneButton: true);
+          Get.offAndToNamed(AppRoutes.ORDERHISTORY);
         }
       }
     }

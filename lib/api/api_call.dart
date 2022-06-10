@@ -447,7 +447,7 @@ class ApiCall {
     }
   }
 
-  Future<dynamic> payment(
+  Future<dynamic> cartToPayment(
     String paymentId,
     String paymentType,
     String amount,
@@ -467,9 +467,9 @@ class ApiCall {
     try {
       _dio.options.headers["basic-api-token"] = _getBaseToken();
       _dio.options.headers["Authorization"] = "Bearer $authKey";
-      log('request ${_dio.options.baseUrl}$PAYMENT');
+      log('request ${_dio.options.baseUrl}$CARTTOPAYMENT');
       debugPrint(authKey);
-      final response = await _dio.post(PAYMENT, data: params);
+      final response = await _dio.post(CARTTOPAYMENT, data: params);
       log('response ${response.statusCode} ${response.data}');
 
       if ((response.statusCode ?? -1) >= 205) {

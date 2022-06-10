@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:intl/intl.dart';
 import 'package:juicy_spot/api/api_call.dart';
 import 'package:juicy_spot/data_models/order_history.dart';
 import 'package:juicy_spot/utils/constant.dart';
