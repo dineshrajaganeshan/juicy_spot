@@ -10,7 +10,6 @@ import 'package:juicy_spot/data_models/cart_list.dart';
 import 'package:juicy_spot/data_models/order_history.dart';
 import 'package:juicy_spot/data_models/product.dart';
 import 'package:juicy_spot/data_models/category.dart';
-import 'package:juicy_spot/data_models/user.dart';
 import 'package:juicy_spot/data_models/user_log_in.dart';
 
 import '../data_models/product_by_category.dart';

@@ -1,11 +1,8 @@
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:juicy_spot/api/api_call.dart';
-import 'package:juicy_spot/api/url.dart';
-import 'package:juicy_spot/data_models/user_log_in.dart';
 import 'package:juicy_spot/routes/app_routes.dart';
 import 'package:juicy_spot/utils/constant.dart';
 
@@ -23,6 +20,7 @@ class SetNewPasswordController extends GetxController {
 
   final _box = GetStorage();
 
+  @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();

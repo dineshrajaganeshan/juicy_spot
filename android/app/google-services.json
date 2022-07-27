@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "976727729994",
+    "project_id": "juicy-spot",
+    "storage_bucket": "juicy-spot.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:976727729994:android:818c83370f1b449bdd83b3",
+        "android_client_info": {
+          "package_name": "com.judah.juicyspot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "976727729994-9n2kfgtdpi8jsrih8etiv45ob2o84ba1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3BtVyJxBX_I63JhUfelVmV21w19FuCQw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "976727729994-9n2kfgtdpi8jsrih8etiv45ob2o84ba1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

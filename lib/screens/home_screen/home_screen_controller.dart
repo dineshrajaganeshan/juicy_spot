@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -27,12 +28,14 @@ class HomeScreenController extends GetxController {
   final _box = GetStorage();
 
   @override
-  void onInit() {
+  Future<void> onInit() async {
     super.onInit();
+    /*String? token = await FirebaseMessaging.instance.getToken();
+    debugPrint("FireBase token: ${token}");*/
     name(_box.read(NAME) ?? "");
     address(_box.read(LOCATION) ?? "");
     imagePath(_box.read(IMAGE_PATH) ?? "");
-    debugPrint("profle mage: ${imagePath}");
+    debugPrint("profle mage: $imagePath");
     authKey = _box.read(AUTHORIZATION_KEY) ?? '';
     getCategoryList();
     getProductList();

@@ -27,9 +27,7 @@ class UserLogIn {
     map['success'] = success;
     map['response'] = response;
     map['message'] = message;
-    if (data != null) {
-      map['data'] = data.toJson();
-    }
+    map['data'] = data.toJson();
     return map;
   }
 }

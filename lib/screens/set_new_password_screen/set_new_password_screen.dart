@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:juicy_spot/screens/set_new_password_screen/set_new_password_controller.dart';
 import 'package:juicy_spot/utils/custom_colors.dart';
 import 'package:juicy_spot/widgets/background.dart';

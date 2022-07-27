@@ -50,9 +50,7 @@ class Cart {
     map['status'] = status;
     map['created_at'] = createdAt;
     map['updated_at'] = updatedAt;
-    if (products != null) {
-      map['products'] = products.toJson();
-    }
+    map['products'] = products.toJson();
     return map;
   }
 }
