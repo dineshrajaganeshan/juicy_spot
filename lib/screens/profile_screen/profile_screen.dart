@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:juicy_spot/utils/custom_colors.dart';
@@ -17,6 +18,8 @@ class ProfileScreen extends GetView<EditAccountController> {
 
   @override
   Widget build(BuildContext context) {
+    Rx<ImageProvider> imageVariable =
+        NetworkImage(controller.imagePath.value).obs;
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: backgroundColor,
@@ -44,40 +47,48 @@ class ProfileScreen extends GetView<EditAccountController> {
                     child: Stack(
                       children: [
                         Obx(
-                          () => Hero(
-                            tag: "profile",
-                            child: Container(
-                              width: 90,
-                              height: 90,
-                              margin: const EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                  color: editTextColor,
-                                  borderRadius: BorderRadius.circular(24),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                        color: Colors.black54,
-                                        spreadRadius: 3,
-                                        blurRadius: 10)
-                                  ],
-                                  image: controller.imagePath.isEmpty
-                                      ? const DecorationImage(
-                                          colorFilter: ColorFilter.mode(
-                                              Colors.white, BlendMode.color),
-                                          image: AssetImage(
-                                            "assets/images/Profile2.png",
-                                          ),
-                                          fit: BoxFit.cover)
-                                      : GetUtils.isURL(
-                                              controller.imagePath.value)
-                                          ? DecorationImage(
-                                              image: NetworkImage(
-                                                  controller.imagePath.value),
-                                              fit: BoxFit.cover)
-                                          : DecorationImage(
-                                              image: FileImage(File(
-                                                  controller.imagePath.value)),
-                                              fit: BoxFit.cover)),
-                            ),
+                          () => Container(
+                            width: 90,
+                            height: 90,
+                            margin: const EdgeInsets.all(8),
+                            decoration: BoxDecoration(
+                                color: editTextColor,
+                                borderRadius: BorderRadius.circular(24),
+                                boxShadow: const [
+                                  BoxShadow(
+                                      color: Colors.black54,
+                                      spreadRadius: 3,
+                                      blurRadius: 10)
+                                ],
+                                image: controller.imagePath.isEmpty
+                                    ? const DecorationImage(
+                                        colorFilter: ColorFilter.mode(
+                                            Colors.white, BlendMode.color),
+                                        image: AssetImage(
+                                          "assets/images/Profile2.png",
+                                        ),
+                                        fit: BoxFit.cover)
+                                    : GetUtils.isURL(controller.imagePath.value)
+                                        ? DecorationImage(
+                                            image: imageVariable.value,
+                                            fit: BoxFit.cover,
+                                            onError: (__, _) {
+                                              /*imageVariable(const AssetImage(
+                                                "assets/images/Profile2.png",
+                                              ) as ImageProvider);*/
+                                            }
+                                            /*CachedNetworkImageProvider(
+                                                controller.imagePath.value,
+                                                errorListener: () {
+                                            const AssetImage(
+                                              "assets/images/Profile2.png",
+                                            );
+                                          })*/
+                                            )
+                                        : DecorationImage(
+                                            image: FileImage(File(
+                                                controller.imagePath.value)),
+                                            fit: BoxFit.cover)),
                           ),
                         ),
                         Positioned(

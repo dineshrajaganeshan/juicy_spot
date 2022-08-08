@@ -35,7 +35,7 @@ class HomeScreenController extends GetxController {
     name(_box.read(NAME) ?? "");
     address(_box.read(LOCATION) ?? "");
     imagePath(_box.read(IMAGE_PATH) ?? "");
-    debugPrint("profle mage: $imagePath");
+    debugPrint("profile image: $imagePath");
     authKey = _box.read(AUTHORIZATION_KEY) ?? '';
     getCategoryList();
     getProductList();

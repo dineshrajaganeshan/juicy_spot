@@ -33,6 +33,7 @@ class EditAccountController extends GetxController {
     authKey = _box.read(AUTHORIZATION_KEY) ?? "";
     passWord = _box.read(PASSWORD) ?? "";
     imagePath(_box.read(IMAGE_PATH) ?? "");
+    debugPrint("IMAGEPATH: ${imagePath}");
   }
 
   submit() async {
@@ -96,9 +97,10 @@ class EditAccountController extends GetxController {
             _box.write(NAME, nameController.text);
             _box.write(LOCATION, locationController.text);
             _box.write(MAIL_ID, mailIdController.text);
-            _box.write(IMAGE_PATH, PROFILE_IMAGE_BASE_URL + imagePath.value);
+            _box.write(IMAGE_PATH,
+                PROFILE_IMAGE_BASE_URL + response['data']['avatar']);
             showToastMsg(response['message']);
-            Get.back();
+            Get.offAllNamed(AppRoutes.HOMESCREEN);
           } else {
             showToastMsg(response['message']);
           }

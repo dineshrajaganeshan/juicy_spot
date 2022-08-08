@@ -29,6 +29,13 @@ cachedImage(
                 : "assets/images/Profile2.png"),
             radius: radius,
           ),
+      placeholder: (__, _) => CircleAvatar(
+            backgroundColor: textColor,
+            backgroundImage: AssetImage(isProduct
+                ? "assets/images/noproduct.jpg"
+                : "assets/images/Profile2.png"),
+            radius: radius,
+          ),
       imageBuilder: (context, imageProvider) => CircleAvatar(
             backgroundColor: circleBgColor,
             backgroundImage: CachedNetworkImageProvider(

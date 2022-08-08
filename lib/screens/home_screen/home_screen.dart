@@ -749,13 +749,6 @@ class HomeScreen extends GetView<HomeScreenController> {
                       ),
                       Obx(
                         () => GestureDetector(
-                          child: Image.asset(
-                            'assets/images/cartt.png',
-                            height: 25,
-                            color: productItem.isOnCart.value
-                                ? Colors.grey
-                                : Colors.white,
-                          ),
                           onTap: controller.isCartLoading.value
                               ? null
                               : () {
@@ -764,6 +757,13 @@ class HomeScreen extends GetView<HomeScreenController> {
                                       productItem.counter,
                                       productItem.isOnCart);
                                 },
+                          child: Image.asset(
+                            'assets/images/cartt.png',
+                            height: 25,
+                            color: productItem.isOnCart.value
+                                ? Colors.grey
+                                : buttonColor,
+                          ),
                         ),
                       ),
                     ],

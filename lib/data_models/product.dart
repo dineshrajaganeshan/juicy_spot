@@ -31,7 +31,8 @@ class Product {
     id = json['id'];
     name = json['name'];
     description = json['description'];
-    images = List<String>.from(jsonDecode(json['images'].toString().replaceAll(r"\", "")));
+    images = List<String>.from(
+        jsonDecode(json['images'].toString().replaceAll(r"\", "")));
     price = json['price'];
     discountPrice = json['discount_price'];
     discountPricePercentage = json['discount_price_percentage'];
@@ -51,6 +52,7 @@ class Product {
   late String status;
   RxBool isOnCart = false.obs;
   RxInt counter = 0.obs;
+  RxInt priceCounter = 0.obs;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

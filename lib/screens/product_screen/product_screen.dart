@@ -210,14 +210,16 @@ class ProductScreen extends GetView<ProductScreenController> {
                     const SizedBox(
                       height: 5,
                     ),
-                    Text(
-                      "$rupeeSym ${controller.product.price}",
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        color: textColor,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
+                    Obx(
+                      () => Text(
+                        "$rupeeSym ${controller.product.priceCounter.value.isLowerThan(1) ? controller.product.price : controller.product.priceCounter}",
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          color: textColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
                       ),
                     ),
                   ],

@@ -21,6 +21,7 @@ class MyAccountController extends GetxController {
     super.onInit();
     name(_box.read(NAME) ?? "");
     imagePath(_box.read(IMAGE_PATH) ?? "");
+    debugPrint("IMAGE PATH: ${imagePath}");
     mobileNumber.text = _box.read(MOBILE_NO) ?? "";
     mailIdController.text = _box.read(MAIL_ID) ?? "";
     locationController.text = _box.read(LOCATION) ?? "";

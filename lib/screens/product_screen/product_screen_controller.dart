@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:juicy_spot/api/api_call.dart';
@@ -16,12 +17,14 @@ class ProductScreenController extends GetxController {
   decrementCounter() {
     if (product.counter.value > 0) {
       product.counter(product.counter.value - 1);
+      product.priceCounter(product.price * product.counter.value);
     }
   }
 
   incrementCounter() {
     if (product.counter.value < 20) {
       product.counter(product.counter.value + 1);
+      product.priceCounter(product.price * product.counter.value);
     }
   }
 
