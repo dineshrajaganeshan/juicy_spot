@@ -10,7 +10,7 @@ import 'routes/app_routes.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
-  await FirebaseNotifcation().initialize();
+  await FirebaseNotification().initialize();
   runApp(const MyApp());
 }
 

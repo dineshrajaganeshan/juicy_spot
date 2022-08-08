@@ -86,7 +86,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                       GestureDetector(
                         child: Image.asset(
                           'assets/images/cart.png',
-                          height: 50,
+                          height: 40,
                         ),
                         onTap: () {
                           Get.toNamed(AppRoutes.MYCART);

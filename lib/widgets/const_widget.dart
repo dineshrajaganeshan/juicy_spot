@@ -20,6 +20,7 @@ cachedImage(
   bool isProduct = false,
   double radius = 60,
 }) {
+
   return CachedNetworkImage(
       imageUrl: url,
       errorWidget: (___, __, _) => CircleAvatar(
@@ -39,14 +40,7 @@ cachedImage(
       imageBuilder: (context, imageProvider) => CircleAvatar(
             backgroundColor: circleBgColor,
             backgroundImage: CachedNetworkImageProvider(
-              url,
-              /*errorListener: () => CircleAvatar(
-                backgroundColor: textColor,
-                backgroundImage: AssetImage(isProduct
-                    ? "assets/images/noproduct.jpg"
-                    : "assets/images/Profile2.png"),
-                radius: radius,
-              ),*/
+              url
             ),
             radius: radius,
           ));

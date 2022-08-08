@@ -21,7 +21,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   debugPrint("Handling a background message : ${message.messageId}");
 }
 
-class FirebaseNotifcation {
+class FirebaseNotification {
   initialize() async {
     await Firebase.initializeApp();
     // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
@@ -56,6 +56,15 @@ class FirebaseNotifcation {
       debugPrint(message.toString());
       notify(message);
     });
+
+    // for tested purpose
+    // notify(RemoteMessage(notification: RemoteNotification(
+    //   title: 'test',
+    //   body: 'tested',
+    //   android: AndroidNotification(),
+    //
+    // )));
+
   }
 
   notify(RemoteMessage message) async {

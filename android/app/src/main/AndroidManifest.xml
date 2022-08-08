@@ -40,8 +40,6 @@
        <meta-data
            android:name="com.google.firebase.messaging.default_notification_channel_id"
            android:value="juicyspot" />
-       <!--<meta-data
-           android:name="com.google.firebase.messaging.default_notification_color"
-           android:resource="@color/colorAccent" />-->
+
     </application>
 </manifest>

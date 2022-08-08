@@ -36,7 +36,6 @@ class MyAccountController extends GetxController {
 
   logOut() async {
     //api call pannanum da inga sollirunthen
-
     await _box.erase();
     Get.offAllNamed(AppRoutes.SPLASHSCREEN);
   }

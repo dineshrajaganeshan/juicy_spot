@@ -18,8 +18,6 @@ class ProfileScreen extends GetView<EditAccountController> {
 
   @override
   Widget build(BuildContext context) {
-    Rx<ImageProvider> imageVariable =
-        NetworkImage(controller.imagePath.value).obs;
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: backgroundColor,
@@ -70,20 +68,11 @@ class ProfileScreen extends GetView<EditAccountController> {
                                         fit: BoxFit.cover)
                                     : GetUtils.isURL(controller.imagePath.value)
                                         ? DecorationImage(
-                                            image: imageVariable.value,
+                                            image: CachedNetworkImageProvider(controller.imagePath.value),
                                             fit: BoxFit.cover,
-                                            onError: (__, _) {
-                                              /*imageVariable(const AssetImage(
-                                                "assets/images/Profile2.png",
-                                              ) as ImageProvider);*/
+                                            onError: (_,__){
+                                                        controller.imagePath('');
                                             }
-                                            /*CachedNetworkImageProvider(
-                                                controller.imagePath.value,
-                                                errorListener: () {
-                                            const AssetImage(
-                                              "assets/images/Profile2.png",
-                                            );
-                                          })*/
                                             )
                                         : DecorationImage(
                                             image: FileImage(File(

@@ -45,7 +45,7 @@ class MyCart extends GetView<MyCartScreenController> {
                       () => GestureDetector(
                           onTap: () => {Get.toNamed(AppRoutes.MYACCOUNT)},
                           child: cachedImage(controller.imagePath.value,
-                              radius: 20)),
+                              radius: 18)),
                     ),
                   ],
                 ),
@@ -85,8 +85,9 @@ class MyCart extends GetView<MyCartScreenController> {
                         ? const Padding(
                             padding: EdgeInsets.only(top: 200),
                             child: Text(
-                              "No Products Found",
-                              style: TextStyle(color: textColor),
+                              "Your Cart is Empty\nAdd some product to proceed",
+                              style: TextStyle(color: textColor,),
+                              textAlign: TextAlign.center,
                             ),
                           )
                         : Expanded(

@@ -38,21 +38,6 @@ isNetConnected() async {
         textColor: Colors.white,
         fontSize: 16.0
     );
-    // ToastContext().init(Get.context!);
-    // Toast.show("Check Your Internet Connection", duration: Toast.lengthLong, gravity:  Toast.bottom);
-    /*const AdvanceSnackBar(
-      mode: Mode.ADVANCE,
-      message: 'Check Your Internet Connection',
-      bgColor: ellipseColor,
-      textColor: textColor,
-      isFixed: true,
-      fontWeight: FontWeight.w400,
-      textSize: 15,
-      icon: Icon(
-        Icons.signal_cellular_connected_no_internet_4_bar,
-        color: Colors.white,
-      ),
-    ).show(Get.context!);*/
   }
   return res;
 }
@@ -72,18 +57,7 @@ showToastMsg(
       textColor: Colors.white,
       fontSize: 16.0
   );
-  // ToastContext().init(Get.context!);
-  // Toast.show(msg, duration: Toast.lengthLong, gravity: Toast.bottom);
 
-  /*AdvanceSnackBar(
-    message: msg,
-    // bgColor: background ?? const Color(0xFF323232), //default color ena potruka??
-    bgColor: background ?? ellipseColor,
-    textColor: background != null ? Colors.white : Colors.white,
-    isFixed: true,
-    fontWeight: FontWeight.w400,
-    textSize: 15,
-  ).show(Get.context!);*/
 }
 
 share(String link, {String? title}) async {
