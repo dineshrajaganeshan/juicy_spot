@@ -1,6 +1,7 @@
 const BASE_URL = "https://juicyspot.in/dev/api/";
 String IMAGE_BASE_URL = "https://juicyspot.in/dev/juicyspot/public/storage/";
-
+String PROFILE_IMAGE_BASE_URL =
+    "https://juicyspot.in/dev/juicyspot/public/storage";
 String NO_IMAGE_URL =
     "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png";
 

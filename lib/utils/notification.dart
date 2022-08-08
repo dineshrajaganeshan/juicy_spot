@@ -64,7 +64,6 @@ class FirebaseNotification {
     //   android: AndroidNotification(),
     //
     // )));
-
   }
 
   notify(RemoteMessage message) async {

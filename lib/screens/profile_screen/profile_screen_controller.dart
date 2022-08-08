@@ -65,6 +65,7 @@ class EditAccountController extends GetxController {
             passWord,
             locationController.text,
             imagePath.value);
+        debugPrint(imagePath.value);
         isLoading(false);
         if (response != null) {
           if (response['success']) {
@@ -72,7 +73,7 @@ class EditAccountController extends GetxController {
             _box.write(NAME, user.name);
             _box.write(LOCATION, user.address);
             _box.write(MAIL_ID, user.mailId);
-            _box.write(IMAGE_PATH, IMAGE_BASE_URL + user.imagePath!);
+            _box.write(IMAGE_PATH, IMAGE_BASE_URL + (user.imagePath ?? ""));
             _box.write(AUTHORIZATION_KEY, response['response']);
             _box.write(IS_LOGIN, true);
             showToastMsg(response['message']);
@@ -97,8 +98,7 @@ class EditAccountController extends GetxController {
             _box.write(NAME, nameController.text);
             _box.write(LOCATION, locationController.text);
             _box.write(MAIL_ID, mailIdController.text);
-            _box.write(IMAGE_PATH,
-                IMAGE_BASE_URL + response['data']['avatar']);
+            _box.write(IMAGE_PATH, IMAGE_BASE_URL + response['data']['avatar']);
             showToastMsg(response['message']);
             Get.offAllNamed(AppRoutes.HOMESCREEN);
           } else {
